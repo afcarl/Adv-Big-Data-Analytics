@@ -51,3 +51,14 @@
   ```python
   documents = sc.wholeTextFiles("Wikipedia-Pages/").values().map(lambda doc: re.split('\W+', doc))
   ```
+7. Now we move onto creating the Term Frequency (TF) for every word in every document. This can be done by using the `HashingTF` class from `mllib.feature` package of Spark
+  
+  ```python
+  from pyspark.mllib.feature import HashingTF
+  
+  hashingTF = HashingTF()
+  tf = hashingTF.transform(documents)
+  ```
+  
+  
+  from pyspark.mllib.feature import IDF
