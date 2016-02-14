@@ -59,7 +59,7 @@
   hashingTF = HashingTF()
   tf = hashingTF.transform(documents)
   ```
-8. In the next and the final step we compute the IDF vector for every word in all the files and scale the TF obtained in the previous step by the IDF
+8. In the next and the final step we compute the IDF for every word in all the files and scale the TF obtained in the previous step by the IDF
   
   ```python
   from pyspark.mllib.feature import IDF
@@ -68,4 +68,10 @@
   idf = IDF().fit(tf)
   tfidf = idf.transform(tf)
   ```
+
+9. Save the awesome TF-IDF result of every page in an output folder. Multiple files will be created based on the partitioning of the RDD.
   
+  ```python
+  tfidf.saveAsTextFile("tf-idf-output")
+  ```
+10. The final output is stored in the `tf-idf-output` folder
