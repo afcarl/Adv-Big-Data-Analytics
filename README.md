@@ -51,7 +51,7 @@
   ```python
   documents = sc.wholeTextFiles("Wikipedia-Pages/").values().map(lambda doc: re.split('\W+', doc))
   ```
-7. Now we move onto creating the Term Frequency (TF) for every word in every document. This can be done by using the `HashingTF` class from `mllib.feature` package of Spark
+7. Now we move onto creating the Term Frequency (TF) for every word in every document. This can be done by using the `HashingTF` class from `mllib.feature` package of Spark.
   
   ```python
   from pyspark.mllib.feature import HashingTF
@@ -59,7 +59,7 @@
   hashingTF = HashingTF()
   tf = hashingTF.transform(documents)
   ```
-8. In the next and the final step we compute the IDF for every word in all the files and scale the TF obtained in the previous step by the IDF
+8. In the next and the final step we compute the IDF for every word in all the files and scale the TF obtained in the previous step by the IDF.
   
   ```python
   from pyspark.mllib.feature import IDF
@@ -74,4 +74,4 @@
   ```python
   tfidf.saveAsTextFile("tf-idf-output")
   ```
-10. The final output is stored in the `tf-idf-output` folder
+10. The final output is stored in the `tf-idf-output` folder.
