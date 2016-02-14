@@ -20,7 +20,7 @@
 
 3. Curate the links, form a set and store in a pickle file.
 
-4. Load the pickle file (there are roughly 127 links in the set)
+4. Load the pickle file (there are roughly 127 links in the set).
 
   ```python
   import pickle
@@ -28,7 +28,7 @@
   links = pickle.load(open('wiki-links.p', "rb"))
   ```
 
-5. Crawl through each of the page and store the cleaned text from each page in a separate text file
+5. Crawl through each of the page and store the cleaned text from each page in a separate text file.
 
   ```python
   from goose import Goose
@@ -46,4 +46,8 @@
     f.close()
 
   ```
-  
+6. Now we create an RDD that loads all these files and stores them in a (key, value) pair format where key is the path of the file and value is the contents of the file. It is important that contents of files should not get mixed up, hence we use `wholeTextFiles` from SparkContext. Further we need only the content and not the paths, hence we extract only values and finally we split the text of each article to obtain only words.
+
+  ```python
+  documents = sc.wholeTextFiles("Wikipedia-Pages/").values().map(lambda doc: re.split('\W+', doc))
+  ```
