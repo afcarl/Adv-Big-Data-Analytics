@@ -74,4 +74,4 @@
   ```python
   tfidf.saveAsTextFile("tf-idf-output")
   ```
-10. The final output is stored in the `tf-idf-output` folder.
+10. The final output is stored in the `tf-idf-output` folder. The output file shows tf-idf vector for each page as a separate tuple. The second entry in the tuple is the list of words (encoded using a hashing function) that occur in that particular page and the third entry in the tuple is the list of tf-idf values for those words respectively.
