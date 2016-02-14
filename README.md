@@ -38,7 +38,7 @@
     url = "https://en.wikipedia.org" + link
     article = g.extract(url=url)
     
-    # Files are stores in a separate folder named "Wikipedia-Pages"
+    # Files are stored in a separate folder named "Wikipedia-Pages"
     filename = "Wikipedia-Pages/" + link[6:]
     
     f = open(filename, 'w')
