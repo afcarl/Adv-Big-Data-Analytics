@@ -59,6 +59,13 @@
   hashingTF = HashingTF()
   tf = hashingTF.transform(documents)
   ```
+8. In the next and the final step we compute the IDF vector for every word in all the files and scale the TF obtained in the previous step by the IDF
   
-  
+  ```python
   from pyspark.mllib.feature import IDF
+  
+  tf.cache()
+  idf = IDF().fit(tf)
+  tfidf = idf.transform(tf)
+  ```
+  
