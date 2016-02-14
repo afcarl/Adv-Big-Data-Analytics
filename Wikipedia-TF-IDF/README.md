@@ -3,8 +3,10 @@
 ###Steps
 
 1. Choose any random wikipedia article as a seed page ([Supervised
-Learning](https://en.wikipedia.org/wiki/Supervised_learning)) 2. Gather all the
-immediate outlinks from the page and form a set of these outlinks
+Learning](https://en.wikipedia.org/wiki/Supervised_learning))
+
+2. Gather all the immediate outlinks from the page and form a set of these
+outlinks
 
   ```python
   from goose import Goose
