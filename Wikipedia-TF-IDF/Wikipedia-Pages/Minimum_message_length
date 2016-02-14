@@ -1,0 +1,13 @@
+Minimum message length (MML) is a formal information theory restatement of Occam's Razor: even when models are not equal in goodness of fit accuracy to the observed data, the one generating the shortest overall message is more likely to be correct (where the message consists of a statement of the model, followed by a statement of data encoded concisely using that model). MML was invented by Chris Wallace, first appearing in the seminal Wallace and Boulton (1968).
+
+MML is intended not just as a theoretical construct, but as a technique that may be deployed in practice. It differs from the related concept of Kolmogorov complexity in that it does not require use of a Turing-complete language to model data. The relation between Strict MML (SMML) and Kolmogorov complexity is outlined in Wallace and Dowe (1999a). Further, a variety of mathematical approximations to "Strict" MML can be used see, e.g., Chapters 4 and 5 of Wallace (posthumous) 2005.
+
+Shannon's A Mathematical Theory of Communication (1949) states that in an optimal code, the message length (in binary) of an event , , where has probability , is given by .
+
+Bayes's theorem states that the probability of a (variable) hypothesis given fixed evidence is proportional to , which, by the definition of conditional probability, is equal to . We want the model (hypothesis) with the highest such posterior probability. Suppose we encode a message which represents (describes) both model and data jointly. Since , the most probable model will have the shortest such message. The message breaks into two parts: . The first part encodes the model itself. The second part contains information (e.g., values of parameters, or initial conditions, etc.) that, when processed by the model, outputs the observed data.
+
+MML naturally and precisely trades model complexity for goodness of fit. A more complicated model takes longer to state (longer first part) but probably fits the data better (shorter second part). So, an MML metric won't choose a complicated model unless that model pays for itself.
+
+One reason why a model might be longer would be simply because its various parameters are stated to greater precision, thus requiring transmission of more digits. Much of the power of MML derives from its handling of how accurately to state parameters in a model, and a variety of approximations that make this feasible in practice. This allows it to usefully compare, say, a model with many parameters imprecisely stated against a model with fewer parameters more accurately stated.
+
+[See also Comley and Dowe (2003), .pdf. Comley & Dowe (2003, 2005) are the first two papers on MML Bayesian nets using both discrete and continuous valued parameters.]

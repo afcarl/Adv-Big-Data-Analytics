@@ -1,0 +1,87 @@
+In machine learning and statistics, feature selection, also known as variable selection, attribute selection or variable subset selection, is the process of selecting a subset of relevant features (variables, predictors) for use in model construction. Feature selection techniques are used for three reasons:
+
+The central premise when using a feature selection technique is that the data contains many features that are either redundant or irrelevant, and can thus be removed without incurring much loss of information.[2] Redundant or irrelevant features are two distinct notions, since one relevant feature may be redundant in the presence of another relevant feature with which it is strongly correlated.[3]
+
+Feature selection techniques should be distinguished from feature extraction. Feature extraction creates new features from functions of the original features, whereas feature selection returns a subset of the features. Feature selection techniques are often used in domains where there are many features and comparatively few samples (or data points). Archetypal cases for the application of feature selection include the analysis of written texts and DNA microarray data, where there are many thousands of features, and a few tens to hundreds of samples.
+
+A feature selection algorithm can be seen as the combination of a search technique for proposing new feature subsets, along with an evaluation measure which scores the different feature subsets. The simplest algorithm is to test each possible subset of features finding the one which minimizes the error rate. This is an exhaustive search of the space, and is computationally intractable for all but the smallest of feature sets. The choice of evaluation metric heavily influences the algorithm, and it is these evaluation metrics which distinguish between the three main categories of feature selection algorithms: wrappers, filters and embedded methods.[3]
+
+Wrapper methods use a predictive model to score feature subsets. Each new subset is used to train a model, which is tested on a hold-out set. Counting the number of mistakes made on that hold-out set (the error rate of the model) gives the score for that subset. As wrapper methods train a new model for each subset, they are very computationally intensive, but usually provide the best performing feature set for that particular type of model.
+
+Filter methods use a proxy measure instead of the error rate to score a feature subset. This measure is chosen to be fast to compute, while still capturing the usefulness of the feature set. Common measures include the mutual information,[3] the pointwise mutual information,[4] Pearson product-moment correlation coefficient, inter/intra class distance or the scores of significance tests for each class/feature combinations.[4][5] Filters are usually less computationally intensive than wrappers, but they produce a feature set which is not tuned to a specific type of predictive model. This lack of tuning means a feature set from a filter is more general than the set from a wrapper, usually giving lower prediction performance than a wrapper. However the feature set doesn't contain the assumptions of a prediction model, and so is more useful for exposing the relationships between the features. Many filters provide a feature ranking rather than an explicit best feature subset, and the cut off point in the ranking is chosen via cross-validation. Filter methods have also been used as a preprocessing step for wrapper methods, allowing a wrapper to be used on larger problems.
+
+Embedded methods are a catch-all group of techniques which perform feature selection as part of the model construction process. The exemplar of this approach is the LASSO method for constructing a linear model, which penalizes the regression coefficients with an L1 penalty, shrinking many of them to zero. Any features which have non-zero regression coefficients are 'selected' by the LASSO algorithm. Improvements to the LASSO include Bolasso which bootstraps samples,[6] and FeaLect which scores all the features based on combinatorial analysis of regression coefficients.[7] One other popular approach is the Recursive Feature Elimination algorithm, commonly used with Support Vector Machines to repeatedly construct a model and remove features with low weights. These approaches tend to be between filters and wrappers in terms of computational complexity.
+
+In traditional statistics, the most popular form of feature selection is stepwise regression, which is a wrapper technique. It is a greedy algorithm that adds the best feature (or deletes the worst feature) at each round. The main control issue is deciding when to stop the algorithm. In machine learning, this is typically done by cross-validation. In statistics, some criteria are optimized. This leads to the inherent problem of nesting. More robust methods have been explored, such as branch and bound and piecewise linear network.
+
+Subset selection evaluates a subset of features as a group for suitability. Subset selection algorithms can be broken up into Wrappers, Filters and Embedded. Wrappers use a search algorithm to search through the space of possible features and evaluate each subset by running a model on the subset. Wrappers can be computationally expensive and have a risk of over fitting to the model. Filters are similar to Wrappers in the search approach, but instead of evaluating against a model, a simpler filter is evaluated. Embedded techniques are embedded in and specific to a model.
+
+Many popular search approaches use greedy hill climbing, which iteratively evaluates a candidate subset of features, then modifies the subset and evaluates if the new subset is an improvement over the old. Evaluation of the subsets requires a scoring metric that grades a subset of features. Exhaustive search is generally impractical, so at some implementor (or operator) defined stopping point, the subset of features with the highest score discovered up to that point is selected as the satisfactory feature subset. The stopping criterion varies by algorithm; possible criteria include: a subset score exceeds a threshold, a program's maximum allowed run time has been surpassed, etc.
+
+Alternative search-based techniques are based on targeted projection pursuit which finds low-dimensional projections of the data that score highly: the features that have the largest projections in the lower-dimensional space are then selected.
+
+Two popular filter metrics for classification problems are correlation and mutual information, although neither are true metrics or 'distance measures' in the mathematical sense, since they fail to obey the triangle inequality and thus do not compute any actual 'distance'  they should rather be regarded as 'scores'. These scores are computed between a candidate feature (or set of features) and the desired output category. There are, however, true metrics that are a simple function of the mutual information;[15] see here.
+
+The choice of optimality criteria is difficult as there are multiple objectives in a feature selection task. Many common ones incorporate a measure of accuracy, penalised by the number of features selected (e.g. the Bayesian information criterion). The oldest are Mallows's C statistic and Akaike information criterion (AIC). These add variables if the t-statistic is bigger than .
+
+Other criteria are Bayesian information criterion (BIC) which uses , minimum description length (MDL) which asymptotically uses , Bonferroni / RIC which use , maximum dependency feature selection, and a variety of new criteria that are motivated by false discovery rate (FDR) which use something close to .
+
+Filter feature selection is a specific case of a more general paradigm called Structure Learning. Feature selection finds the relevant feature set for a specific target variable whereas structure learning finds the relationships between all the variables, usually by expressing these relationships as a graph. The most common structure learning algorithms assume the data is generated by a Bayesian Network, and so the structure is a directed graphical model. The optimal solution to the filter feature selection problem is the Markov blanket of the target node, and in a Bayesian Network, there is a unique Markov Blanket for each node.[16]
+
+Peng et al.[17] proposed a feature selection method that can use either mutual information, correlation, or distance/similarity scores to select features. The aim is to penalise a feature's relevancy by its redundancy in the presence of the other selected features. The relevance of a feature set S for the class c is defined by the average value of all mutual information values between the individual feature f and the class c as follows:
+
+The redundancy of all features in the set S is the average value of all mutual information values between the feature f and the feature f :
+
+The mRMR criterion is a combination of two measures given above and is defined as follows:
+
+Suppose that there are n full-set features. Let x be the set membership indicator function for feature f , so that x =1 indicates presence and x =0 indicates absence of the feature f in the globally optimal feature set. Let and . The above may then be written as an optimization problem:
+
+The mRMR algorithm is an approximation of the theoretically optimal maximum-dependency feature selection algorithm that maximizes the mutual information between the joint distribution of the selected features and the classification variable. As mRMR approximates the combinatorial estimation problem with a series of much smaller problems, each of which only involves two variables, it thus uses pairwise joint probabilities which are more robust. In certain situations the algorithm may underestimate the usefulness of features as it has no way to measure interactions between features which can increase relevancy. This can lead to poor performance[18] when the features are individually useless, but are useful when combined (a pathological case is found when the class is a parity function of the features). Overall the algorithm is more efficient (in terms of the amount of data required) than the theoretically optimal max-dependency selection, yet produces a feature set with little pairwise redundancy.
+
+mRMR is an instance of a large class of filter methods which trade off between relevancy and redundancy in different ways.[18][19]
+
+mRMR is a typical example of an incremental greedy strategy for feature selection: once a feature has been selected, it cannot be deselected at a later stage. While mRMR could be optimized using floating search to reduce some features, it might also be reformulated as a global quadratic programming optimization problem as follows:[20]
+
+where is the vector of feature relevancy assuming there are n features in total, is the matrix of feature pairwise redundancy, and represents relative feature weights. QPFS is solved via quadratic programming. It is recently shown that QFPS is biased towards features with smaller entropy,[21] due to its placement of the feature self redundancy term on the diagonal of H.
+
+Another global formulation for the mutual information based feature selection problem is based on the conditional relevancy:[21]
+
+An advantage of SPEC is that it can be solved simply via finding the dominant eigenvector of Q, thus is very scalable. SPEC also handles second-order feature interaction.
+
+For high-dimensional and small sample data (e.g., dimensionality > 105 and the number of samples < 103), the Hilbert-Schmidt Independence Criterion Lasso (HSIC Lasso) is useful.[22] HSIC Lasso optimization problem is given as
+
+where is a kernel-based independence measure called the (empirical) Hilbert-Schmidt independence criterion (HSIC), denotes the trace, is the regularization parameter, and are input and output centered Gram matrices, and are Gram matrices, and are kernel functions, is the centering matrix, is the m-dimensional identity matrix (m: the number of samples), is the m-dimensional vector with all ones, and is the -norm. HSIC always takes a non-negative value, and is zero if and only if two random variables are statistically independent when a universal reproducing kernel such as the Gaussian kernel is used.
+
+The HSIC Lasso can be written as
+
+where is the Frobenius norm. The optimization problem is a Lasso problem, and thus it can be efficiently solved with a state-of-the-art Lasso solver such as the dual augmented Lagrangian method.
+
+The Correlation Feature Selection (CFS) measure evaluates subsets of features on the basis of the following hypothesis: "Good feature subsets contain features highly correlated with the classification, yet uncorrelated to each other".[23][24] The following equation gives the merit of a feature subset S consisting of k features:
+
+Here, is the average value of all feature-classification correlations, and is the average value of all feature-feature correlations. The CFS criterion is defined as follows:
+
+The and variables are referred to as correlations, but are not necessarily Pearson's correlation coefficient or Spearman's . Dr. Mark Hall's dissertation uses neither of these, but uses three different measures of relatedness, minimum description length (MDL), symmetrical uncertainty, and relief.
+
+Let x be the set membership indicator function for feature f ; then the above can be rewritten as an optimization problem:
+
+The combinatorial problems above are, in fact, mixed 01 linear programming problems that can be solved by using branch-and-bound algorithms.[25]
+
+The features from a decision tree or a tree ensemble are shown to be redundant. A recent method called regularized tree[26] can be used for feature subset selection. Regularized trees penalize using a variable similar to the variables selected at previous tree nodes for splitting the current node. Regularized trees only need build one tree model (or one tree ensemble model) and thus are computationally efficient.
+
+Regularized trees naturally handle numerical and categorical features, interactions and nonlinearities. They are invariant to attribute scales (units) and insensitive to outliers, and thus, require little data preprocessing such as normalization. Regularized random forest (RRF)[27] is one type of regularized trees. The guided RRF is an enhanced RRF which is guided by the importance scores from an ordinary random forest.
+
+A metaheuristic is a general description of an algorithm dedicated to solve difficult (typically NP-hard problem) optimization problems for which there is no classical solving methods. Generally, a metaheustochastic stochastics algorithm tending to reach a global optima. There are many metaheuristics, from a simple local search to a complex global search algorithm.
+
+The feature selection methods are typically presented in three classes based on how they combine the selection algorithm and the model building.
+
+Filter-based feature selection has become crucial in many classification settings, especially object recognition, recently faced with feature learning strategies that originate thousands of cues.[28] Filter methods analyze intrinsic properties of data, ignoring the classifier. Most of these methods can perform two operations, ranking and subset selection: in the former, the importance of each individual feature is evaluated, usually by neglecting potential interactions among the elements of the joint set; in the latter, the final subset of features to be selected is provided. In some cases, these two operations are performed sequentially (first the ranking, then the selection); in other cases, only the selection is carried out.[28] Filter methods suppress the least interesting variables. These methods are particularly effective in computation time and robust to overfitting.[29]
+
+However, filter methods tend to select redundant variables because they do not consider the relationships between variables. Therefore, they are mainly used as a pre-process method.
+
+Wrapper methods evaluate subsets of variables which allows, unlike filter approaches, to detect the possible interactions between variables.[30] The two main disadvantages of these methods are:
+
+Recently, embedded methods have been proposed to reduce the classification of learning. They try to combine the advantages of both previous methods. The learning algorithm takes advantage of its own variable selection algorithm. So, it needs to know preliminary what a good selection is, which limits their exploitation.[31]
+
+This is a survey of the application of feature selection metaheuristics lately used in the literature. This survey was realized by J. Hammon in her thesis.[29]
+
+Some learning algorithms perform feature selection as part of their overall operation. These include:

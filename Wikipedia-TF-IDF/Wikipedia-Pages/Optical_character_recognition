@@ -1,0 +1,69 @@
+Optical character recognition (optical character reader) (OCR) is the mechanical or electronic conversion of images of typed, handwritten or printed text into machine-encoded text. It is widely used as a form of data entry from printed paper data records, whether passport documents, invoices, bank statements, computerised receipts, business cards, mail, printouts of static-data, or any suitable documentation. It is a common method of digitising printed texts so that it can be electronically edited, searched, stored more compactly, displayed on-line, and used in machine processes such as machine translation, text-to-speech, key data and text mining. OCR is a field of research in pattern recognition, artificial intelligence and computer vision.
+
+Early versions needed to be trained with images of each character, and worked on one font at a time. Advanced systems capable of producing a high degree of recognition accuracy for most fonts are now common. Some systems are capable of reproducing formatted output that closely approximates the original page including images, columns, and other non-textual components.
+
+Early optical character recognition may be traced to technologies involving telegraphy and creating reading devices for the blind.[1] In 1914, Emanuel Goldberg developed a machine that read characters and converted them into standard telegraph code.[citation needed] Concurrently, Edmund Fournier d'Albe developed the Optophone, a handheld scanner that when moved across a printed page, produced tones that corresponded to specific letters or characters.[2]
+
+In the late 1920s and into the 1930s Emanuel Goldberg developed what he called a "Statistical Machine" for searching microfilm archives using an optical code recognition system. In 1931 he was granted USA Patent number 1,838,389 for the invention. The patent was acquired by IBM.
+
+In 1974, Ray Kurzweil started the company Kurzweil Computer Products, Inc. and continued development of omni-font OCR, which could recognize text printed in virtually any font (Kurzweil is often credited with inventing omni-font OCR, but it was in use by companies, including CompuScan, in the late 1960s and 1970s[1][3]). Kurzweil decided that the best application of this technology would be to create a reading machine for the blind, which would allow blind people to have a computer read text to them out loud. This device required the invention of two enabling technologies the CCD flatbed scanner and the text-to-speech synthesiser. On January 13, 1976, the successful finished product was unveiled during a widely reported news conference headed by Kurzweil and the leaders of the National Federation of the Blind.[citation needed] In 1978, Kurzweil Computer Products began selling a commercial version of the optical character recognition computer program. LexisNexis was one of the first customers, and bought the program to upload legal paper and news documents onto its nascent online databases. Two years later, Kurzweil sold his company to Xerox, which had an interest in further commercialising paper-to-computer text conversion. Xerox eventually spun it off as Scansoft, which merged with Nuance Communications.[citation needed] The research group headed by A. G. Ramakrishnan at the Medical intelligence and language engineering lab, Indian Institute of Science, has developed PrintToBraille tool, an open source GUI frontend[4] that can be used by any OCR to convert scanned images of printed books to Braille books.
+
+In the 2000s, OCR was made available online as a service (WebOCR), in a cloud computing environment, and in mobile applications like real-time translation of foreign-language signs on a smartphone.
+
+Various commercial and open source OCR systems are available for most common writing systems, including Latin, Cyrillic, Arabic, Hebrew, Indic, Bengali (Bangla), Devanagari, Tamil, Chinese, Japanese, and Korean characters.
+
+OCR engines have been developed into many kinds of object-oriented OCR applications, such as receipt OCR, invoice OCR, check OCR, legal billing document OCR.
+
+They can be used for:
+
+OCR is generally an "offline" process, which analyses a static document. Handwriting movement analysis can be used as input to handwriting recognition.[8] Instead of merely using the shapes of glyphs and words, this technique is able to capture motions, such as the order in which segments are drawn, the direction, and the pattern of putting the pen down and lifting it. This additional information can make the end-to-end process more accurate. This technology is also known as "on-line character recognition", "dynamic character recognition", "real-time character recognition", and "intelligent character recognition".
+
+OCR software often "pre-processes" images to improve the chances of successful recognition. Techniques include:[9]
+
+Segmentation of fixed-pitch fonts is accomplished relatively simply by aligning the image to a uniform grid based on where vertical grid lines will least often intersect black areas. For proportional fonts, more sophisticated techniques are needed because whitespace between letters can sometimes be greater than that between words, and vertical lines can intersect more than one character.[17]
+
+There are two basic types of core OCR algorithm, which may produce a ranked list of candidate characters.[18]
+
+Matrix matching involves comparing an image to a stored glyph on a pixel-by-pixel basis; it is also known as "pattern matching", "pattern recognition", or "image correlation".[19] This relies on the input glyph being correctly isolated from the rest of the image, and on the stored glyph being in a similar font and at the same scale. This technique works best with typewritten text and does not work well when new fonts are encountered. This is the technique the early physical photocell-based OCR implemented, rather directly.
+
+Feature extraction decomposes glyphs into "features" like lines, closed loops, line direction, and line intersections. These are compared with an abstract vector-like representation of a character, which might reduce to one or more glyph prototypes. General techniques of feature detection in computer vision are applicable to this type of OCR, which is commonly seen in "intelligent" handwriting recognition and indeed most modern OCR software.[10] Nearest neighbour classifiers such as the k-nearest neighbors algorithm are used to compare image features with stored glyph features and choose the nearest match.[20]
+
+Software such as Cuneiform and Tesseract use a two-pass approach to character recognition. The second pass is known as "adaptive recognition" and uses the letter shapes recognised with high confidence on the first pass to recognise better the remaining letters on the second pass. This is advantageous for unusual fonts or low-quality scans where the font is distorted (e.g. blurred or faded).[17]
+
+The OCR result can be stored in the standardised ALTO format, a dedicated XML schema maintenained by the United States Library of Congress.
+
+OCR accuracy can be increased if the output is constrained by a lexicon a list of words that are allowed to occur in a document.[9] This might be, for example, all the words in the English language, or a more technical lexicon for a specific field. This technique can be problematic if the document contains words not in the lexicon, like proper nouns. Tesseract uses its dictionary to influence the character segmentation step, for improved accuracy.[17]
+
+The output stream may be a plain text stream or file of characters, but more sophisticated OCR systems can preserve the original layout of the page and produce, for example, an annotated PDF that includes both the original image of the page and a searchable textual representation.
+
+"Near-neighbor analysis" can make use of co-occurrence frequencies to correct errors, by noting that certain words are often seen together.[19] For example, "Washington, D.C." is generally far more common in English than "Washington DOC".
+
+Knowledge of the grammar of the language being scanned can also help determine if a word is likely to be a verb or a noun, for example, allowing greater accuracy.
+
+In recent years,[when?] the major OCR technology providers began to tweak OCR systems to better deal with specific types of input. Beyond an application-specific lexicon, better performance can be had by taking into account business rules, standard expression,[clarification needed] or rich information contained in color images. This strategy is called "Application-Oriented OCR" or "Customised OCR", and has been applied to OCR of license plates, business cards, invoices, screenshots, ID cards, driver licenses, and automobile manufacturing.
+
+There are several techniques for solving the problem of character recognition by means other than improved OCR algorithms.
+
+Special fonts like OCR-A, OCR-B, or MICR fonts, with precisely specified sizing, spacing, and distinctive character shapes, allow a higher accuracy rate during transcription. These were often used in early matrix-matching systems.
+
+"Comb fields" are pre-printed boxes that encourage humans to write more legibly one glyph per box.[19] These are often printed in a "dropout color" which can be easily removed by the OCR system.[19]
+
+Palm OS used a special set of glyphs, known as "Graffiti" which are similar to printed English characters but simplified or modified for easier recognition on the platform's computationally limited hardware. Users would need to learn how to write these special glyphs.
+
+Zone-based OCR restricts the image to a specific part of a document. This is often referred to as "Template OCR".
+
+Crowdsourcing humans to perform the character recognition can quickly process images like computer-driven OCR, but with higher accuracy for recognizing images than is obtained with computers. Practical systems include the Amazon Mechanical Turk and reCAPTCHA. The National Library of Finland has developped a online interface for users correct OCRed texts in the standardised ALTO format.[21]
+
+Commissioned by the U.S. Department of Energy (DOE), the Information Science Research Institute (ISRI) had the mission to foster the improvement of automated technologies for understanding machine printed documents, and it conducted the most authoritative of the Annual Test of OCR Accuracy from 1992 to 1996.[22]
+
+Recognition of Latin-script, typewritten text is still not 100% accurate even where clear imaging is available. One study based on recognition of 19th- and early 20th-century newspaper pages concluded that character-by-character OCR accuracy for commercial OCR software varied from 81% to 99%;[23] total accuracy can be achieved by human review or Data Dictionary Authentication. Other areasincluding recognition of hand printing, cursive handwriting, and printed text in other scripts (especially those East Asian language characters which have many strokes for a single character)are still the subject of active research. The MNIST database is commonly used for testing systems' ability to recognise handwritten digits.
+
+Accuracy rates can be measured in several ways, and how they are measured can greatly affect the reported accuracy rate. For example, if word context (basically a lexicon of words) is not used to correct software finding non-existent words, a character error rate of 1% (99% accuracy) may result in an error rate of 5% (95% accuracy) or worse if the measurement is based on whether each whole word was recognised with no incorrect letters.[24]
+
+Web based OCR systems for recognising hand-printed text on the fly have become well known as commercial products in recent years[when?] (see Tablet PC history). Accuracy rates of 80% to 90% on neat, clean hand-printed characters can be achieved by pen computing software, but that accuracy rate still translates to dozens of errors per page, making the technology useful only in very limited applications.[citation needed]
+
+Recognition of cursive text is an active area of research, with recognition rates even lower than that of hand-printed text. Higher rates of recognition of general cursive script will likely not be possible without the use of contextual or grammatical information. For example, recognising entire words from a dictionary is easier than trying to parse individual characters from script. Reading the Amount line of a cheque (which is always a written-out number) is an example where using a smaller dictionary can increase recognition rates greatly. The shapes of individual cursive characters themselves simply do not contain enough information to accurately (greater than 98%) recognise all handwritten cursive script.[citation needed]
+
+Characters to support OCR were added to the Unicode Standard in June 1993, with the release of version 1.1.
+
+Some of these characters are mapped from fonts specific to MICR or OCR-A.

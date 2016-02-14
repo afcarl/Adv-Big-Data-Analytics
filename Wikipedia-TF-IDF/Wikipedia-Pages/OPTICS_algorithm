@@ -1,0 +1,35 @@
+Ordering points to identify the clustering structure (OPTICS) is an algorithm for finding density-based clusters in spatial data. It was presented by Mihael Ankerst, Markus M. Breunig, Hans-Peter Kriegel and Jrg Sander.[1] Its basic idea is similar to DBSCAN,[2] but it addresses one of DBSCAN's major weaknesses: the problem of detecting meaningful clusters in data of varying density. In order to do so, the points of the database are (linearly) ordered such that points which are spatially closest become neighbors in the ordering. Additionally, a special distance is stored for each point that represents the density that needs to be accepted for a cluster in order to have both points belong to the same cluster. This is represented as a dendrogram.
+
+Like DBSCAN, OPTICS requires two parameters: , which describes the maximum distance (radius) to consider, and , describing the number of points required to form a cluster. A point is a core point if at least points are found within its -neighborhood . Contrary to DBSCAN, OPTICS also considers points that are part of a more densely packed cluster, so each point is assigned a core distance that describes the distance to the th closest point:
+
+The reachability-distance of another point from a point is the distance between and , or the core distance of :
+
+If and are nearest neighbors, this is the we need to assume in order to have and belong to the same cluster.
+
+Both the core-distance and the reachability-distance are undefined if no sufficiently dense cluster (w.r.t. ) is available. Given a sufficiently large , this will never happen, but then every -neighborhood query will return the entire database, resulting in runtime. Hence, the parameter is required to cut off the density of clusters that is no longer considered to be interesting and to speed up the algorithm this way.
+
+The parameter is, strictly speaking, not necessary. It can simply be set to the maximum possible value. When a spatial index is available, however, it does play a practical role with regards to complexity. It is often claimed[by whom?] that OPTICS abstracts from DBSCAN by removing this parameter, at least to the extent of only having to give the maximum value.
+
+The basic approach of OPTICS is similar to DBSCAN, but instead of maintaining a set of known, but so far unprocessed cluster members, a priority queue (e.g. using an indexed heap) is used.
+
+In update(), the priority queue Seeds is updated with the -neighborhood of and , respectively:
+
+OPTICS hence outputs the points in a particular ordering, annotated with their smallest reachability distance (in the original algorithm, the core distance is also exported, but this is not required for further processing).
+
+Using a reachability-plot (a special kind of dendrogram), the hierarchical structure of the clusters can be obtained easily. It is a 2D plot, with the ordering of the points as processed by OPTICS on the x-axis and the reachability distance on the y-axis. Since points belonging to a cluster have a low reachability distance to their nearest neighbor, the clusters show up as valleys in the reachability plot. The deeper the valley, the denser the cluster.
+
+The image above illustrates this concept. In its upper left area, a synthetic example data set is shown. The upper right part visualizes the spanning tree produced by OPTICS, and the lower part shows the reachability plot as computed by OPTICS. Colors in this plot are labels, and not computed by the algorithm; but it is well visible how the valleys in the plot correspond to the clusters in above data set. The yellow points in this image are considered noise, and no valley is found in their reachability plot. They will usually not be assigned to clusters except the omnipresent "all data" cluster in a hierarchical result.
+
+Extracting clusters from this plot can be done manually by selecting a range on the x-axis after visual inspection, by selecting a threshold on the y-axis (the result will then be similar to a DBSCAN clustering result with the same and minPts parameters; here a value of 0.1 may yield good results), or by different algorithms that try to detect the valleys by steepness, knee detection, or local maxima. Clusterings obtained this way usually are hierarchical, and cannot be achieved by a single DBSCAN run.
+
+Like DBSCAN, OPTICS processes each point once, and performs one -neighborhood query during this processing. Given a spatial index that grants a neighborhood query in runtime, an overall runtime of is obtained. The authors of the original OPTICS paper report an actual constant slowdown factor of 1.6 compared to DBSCAN. Note that the value of might heavily influence the cost of the algorithm, since a value too large might raise the cost of a neighborhood query to linear complexity.
+
+In particular, choosing (larger than the maximum distance in the data set) is possible, but will obviously lead to quadratic complexity, since every neighborhood query will return the full data set. Even when no spatial index is available, this comes at additional cost in managing the heap. Therefore, should be chosen appropriately for the data set.
+
+OPTICS-OF[3] is an outlier detection algorithm based on OPTICS. The main use is the extraction of outliers from an existing run of OPTICS at low cost compared to using a different outlier detection method.
+
+DeLi-Clu,[4] Density-Link-Clustering combines ideas from single-linkage clustering and OPTICS, eliminating the parameter and offering performance improvements over OPTICS.
+
+DiSH[7] is an improvement over HiSC that can find more complex hierarchies.
+
+Java implementations of OPTICS, OPTICS-OF, DeLi-Clu, HiSC, HiCO and DiSH are available in the ELKI data mining framework (with index acceleration for several distance functions, and with automatic cluster extraction using the  extraction method). Other Java implementations include SPMF and in the Weka extensions (no support for  cluster extraction). The Francis Crick Institute provides a C reimplementation of OPTICS with R bindings, but without index support. The R package dbscan includes a C++ implementation of OPTICS using a kd-tree for index acceleration for Euclidean distance only.

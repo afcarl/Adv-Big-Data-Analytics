@@ -1,0 +1,17 @@
+t-distributed stochastic neighbor embedding (t-SNE) is a machine learning algorithm for dimensionality reduction developed by Laurens van der Maaten and Geoffrey Hinton.[1] It is a nonlinear dimensionality reduction technique that is particularly well suited for embedding high-dimensional data into a space of two or three dimensions, which can then be visualized in a scatter plot. Specifically, it models each high-dimensional object by a two- or three-dimensional point in such a way that similar objects are modeled by nearby points and dissimilar objects are modeled by distant points.
+
+The t-SNE algorithm comprises two main stages. First, t-SNE constructs a probability distribution over pairs of high-dimensional objects in such a way that similar objects have a high probability of being picked, whilst dissimilar points have an infinitesimal probability of being picked. Second, t-SNE defines a similar probability distribution over the points in the low-dimensional map, and it minimizes the KullbackLeibler divergence between the two distributions with respect to the locations of the points in the map. Note that whilst the original algorithm uses the Euclidean distance between objects as the base of its similarity metric, this should be changed as appropriate.
+
+t-SNE has been used in a wide range of applications, including computer security research,[2] music analysis,[3] cancer research,[4] and bioinformatics.[5]
+
+Given a set of high-dimensional objects , t-SNE first computes probabilities that are proportional to the similarity of objects and , as follows:
+
+The bandwidth of the Gaussian kernels , is set in such a way that the perplexity of the conditional distribution equals a predefined perplexity using a binary search. As a result, the bandwidth is adapted to the density of the data: smaller values of are used in denser parts of the data space.
+
+t-SNE aims to learn a -dimensional map (with ) that reflects the similarities as well as possible. To this end, it measures similarities between two points in the map and , using a very similar approach. Specifically, is defined as:
+
+Herein a heavy-tailed Student-t distribution is used to measure similarities between low-dimensional points in order to allow dissimilar objects to be modeled far apart in the map.
+
+The locations of the points in the map are determined by minimizing the (non-symmetric) KullbackLeibler divergence of the distribution from the distribution , that is:
+
+The minimization of the KullbackLeibler divergence with respect to the points is performed using gradient descent. The result of this optimization is a map that reflects the similarities between the high-dimensional inputs well.

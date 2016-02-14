@@ -1,0 +1,81 @@
+In statistics, originally in geostatistics, Kriging or Gaussian process regression is a method of interpolation for which the interpolated values are modeled by a Gaussian process governed by prior covariances, as opposed to a piecewise-polynomial spline chosen to optimize smoothness of the fitted values. Under suitable assumptions on the priors, Kriging gives the best linear unbiased prediction of the intermediate values. Interpolating methods based on other criteria such as smoothness need not yield the most likely intermediate values. The method is widely used in the domain of spatial analysis and computer experiments. The technique is also known as WienerKolmogorov prediction, after Norbert Wiener and Andrey Kolmogorov.
+
+The theoretical basis for the method was developed by the French mathematician Georges Matheron based on the Master's thesis of Danie G. Krige, the pioneering plotter of distance-weighted average gold grades at the Witwatersrand reef complex in South Africa. Krige sought to estimate the most likely distribution of gold based on samples from a few boreholes. The English verb is to krige and the most common noun is Kriging; both are often pronounced with a hard "g", following the pronunciation of the name "Krige".
+
+The basic idea of Kriging is to predict the value of a function at a given point by computing a weighted average of the known values of the function in the neighborhood of the point. The method is mathematically closely related to regression analysis. Both theories derive a best linear unbiased estimator, based on assumptions on covariances, make use of Gauss-Markov theorem to prove independence of the estimate and error, and make use of very similar formulae. Even so, they are useful in different frameworks: Kriging is made for estimation of a single realization of a random field, while regression models are based on multiple observations of a multivariate data set.
+
+The Kriging estimation may also be seen as a spline in a reproducing kernel Hilbert space, with the reproducing kernel given by the covariance function.[1] The difference with the classical Kriging approach is provided by the interpretation: while the spline is motivated by a minimum norm interpolation based on a Hilbert space structure, Kriging is motivated by an expected squared prediction error based on a stochastic model.
+
+Kriging with polynomial trend surfaces is mathematically identical to generalized least squares polynomial curve fitting.
+
+Kriging can also be understood as a form of Bayesian inference.[2] Kriging starts with a prior distribution over functions. This prior takes the form of a Gaussian process: samples from a function will be normally distributed, where the covariance between any two samples is the covariance function (or kernel) of the Gaussian process evaluated at the spatial location of two points. A set of values is then observed, each value associated with a spatial location. Now, a new value can be predicted at any new spatial location, by combining the Gaussian prior with a Gaussian likelihood function for each of the observed values. The resulting posterior distribution is also Gaussian, with a mean and covariance that can be simply computed from the observed values, their variance, and the kernel matrix derived from the prior.
+
+In geostatistical models, sampled data is interpreted as the result of a random process. The fact that these models incorporate uncertainty in their conceptualization doesn't mean that the phenomenon - the forest, the aquifer, the mineral deposit - has resulted from a random process, but rather it allows one to build a methodological basis for the spatial inference of quantities in unobserved locations, and to quantify the uncertainty associated with the estimator.
+
+A stochastic process is, in the context of this model, simply a way to approach the set of data collected from the samples. The first step in geostatistical modulation is to create a random process that best describes the set of observed data.[3]
+
+A value from location (generic denomination of a set of geographic coordinates) is interpreted as a realization of the random variable . In the space , where the set of samples is dispersed, there are realizations of the random variables , correlated between themselves.
+
+The set of random variables constitutes a random function of which only one realization is known - the set of observed data. With only one realization of each random variable it's theoretically impossible to determine any statistical parameter of the individual variables or the function.
+
+For instance, if one assumes, based on the homogeneity of samples in area where the variable is distributed, the hypothesis that the first moment is stationary (i.e. all random variables have the same mean), then one is assuming that the mean can be estimated by the arithmetic mean of sampled values. Judging such a hypothesis as appropriate is equivalent to considering the sample values sufficiently homogeneous to validate that representation.
+
+The hypothesis of stationarity related to the second moment is defined in the following way: the correlation between two random variables solely depends on the spatial distance between them, and is independent of their location:
+
+This hypothesis allows one to infer those two measures - the variogram and the covariogram - based on the samples:
+
+Spatial inference, or estimation, of a quantity , at an unobserved location , is calculated from a linear combination of the observed values and weights :
+
+The weights are intended to summarize two extremely important procedures in a spatial inference process:
+
+When calculating the weights , there are two objectives in the geostatistical formalism: unbias and minimal variance of estimation.
+
+If the cloud of real values is plotted against the estimated values , the criterion for global unbias, intrinsic stationarity or wide sense stationarity of the field, implies that the mean of the estimations must be equal to mean of the real values.
+
+The second criterion says that the mean of the squared deviations must be minimal, which means that when the cloud of estimated values versus the cloud real values is more disperse, the estimator is more imprecise.
+
+Depending on the stochastic properties of the random field and the various degrees of stationarity assumed, different methods for calculating the weights can be deducted, i.e. different types of kriging apply. Classical methods are:
+
+The unknown value is interpreted as a random variable located in , as well as the values of neighbors samples . The estimator is also interpreted as a random variable located in , a result of the linear combination of variables.
+
+In order to deduce the Kriging system for the assumptions of the model, the following error committed while estimating in is declared:
+
+The two quality criteria referred to previously can now be expressed in terms of the mean and variance of the new random variable :
+
+Since the random function is stationary, , the following constraint is observed:
+
+In order to ensure that the model is unbiased, the weights must sum to one.
+
+Two estimators can have , but the dispersion around their mean determines the difference between the quality of estimators. To find an estimator with minimum variance, we need to minimize .
+
+* see covariance matrix[not in citation given] for a detailed explanation
+
+* where the literals stand for .
+
+Once defined the covariance model or variogram, or , valid in all field of analysis of , than we can write an expression for the estimation variance of any estimator in function of the covariance between the samples and the covariances between the samples and the point to estimate:
+
+Some conclusions can be asserted from this expression. The variance of estimation:
+
+Solving this optimization problem (see Lagrange multipliers) results in the Kriging system:
+
+the additional parameter is a Lagrange multiplier used in the minimization of the Kriging error to honor the unbiasedness condition.
+
+Simple kriging is mathematically the simplest, but the least general.[5] It assumes the expectation of the random field to be known, and relies on a covariance function. However, in most applications neither the expectation nor the covariance are known beforehand.
+
+The practical assumptions for the application of simple Kriging are:
+
+The Kriging weights of simple Kriging have no unbiasedness condition and are given by the simple Kriging equation system:
+
+This is analogous to a linear regression of on the other .
+
+The interpolation by simple Kriging is given by:
+
+The Kriging error is given by:
+
+which leads to the generalised least squares version of the Gauss-Markov theorem (Chiles & Delfiner 1999, p.159):
+
+Although Kriging was developed originally for applications in geostatistics, it is a general method of statistical interpolation that can be applied within any discipline to sampled data from random fields that satisfy the appropriate mathematical assumptions.
+
+To date Kriging has been used in a variety of disciplines, including the following:
+
+Another very important and rapidly growing field of application, in engineering, is the interpolation of data coming out as response variables of deterministic computer simulations,[19] e.g. finite element method (FEM) simulations. In this case, kriging is used as a metamodeling tool, i.e. a black box model built over a designed set of computer experiments. In many practical engineering problems, such as the design of a metal forming process, a single FEM simulation might be several hours or even a few days long. It is therefore more efficient to design and run a limited number of computer simulations, and then use a kriging interpolator to rapidly predict the response in any other design point. Kriging is therefore used very often as a so-called surrogate model, implemented inside optimization routines.[20]

@@ -1,0 +1,17 @@
+Proaftn is a fuzzy classification method that belongs to the class of supervised learning algorithms. The acronym Proaftn stands for: (PROcdure d'Affectation Floue pour la problmatique du Tri Nominal), which means in English: Fuzzy Assignment Procedure for Nominal Sorting.
+
+The method enables to determine the fuzzy indifference relations by generalizing the indices (concordance and discordance) used in the ELECTRE III method.[1] To determine the fuzzy indifference relations, PROAFTN uses the general scheme of the discretization technique described in,[2] that establishes a set of pre-classified cases called a training set.
+
+To resolve the classification problems, Proaftn proceeds by the following stages:[3]
+
+Stage 1. Modeling of classes: In this stage, the prototypes of the classes are conceived using the two following steps:
+
+Direct technique: It consists in adjusting the parameters through the training set and with the expert intervention.
+
+Indirect technique: It consists in fitting the parameters without the expert intervention as used in machine learning approaches.[4][5]
+
+In multicriteria classification problem, the indirect technique is known as preference disaggregation analysis.[6] This technique requires less cognitive effort than the former technique; it uses an automatic method to determine the optimal parameters, which minimize the classification errors.
+
+Furthermore, several heuristics and metaheuristics were used to learn the multicriteria classification method Proaftn.[7][8]
+
+Stage 2. Assignment: After conceiving the prototypes, Proaftn proceeds to assign the new objects to specific classes.

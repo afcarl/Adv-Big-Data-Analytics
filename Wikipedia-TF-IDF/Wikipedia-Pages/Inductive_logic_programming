@@ -1,0 +1,29 @@
+Inductive logic programming (ILP) is a subfield of machine learning which uses logic programming as a uniform representation for examples, background knowledge and hypotheses. Given an encoding of the known background knowledge and a set of examples represented as a logical database of facts, an ILP system will derive a hypothesised logic program which entails all the positive and none of the negative examples.
+
+Inductive logic programming is particularly useful in bioinformatics and natural language processing. Ehud Shapiro laid the theoretical foundation for inductive logic programming[1][2] and built its first implementation (Model Inference System) in 1981:[3] a Prolog program that inductively inferred logic programs from positive and negative examples. The term Inductive Logic Programming was first introduced[4] in a paper by Stephen Muggleton in 1991.[5] The term "inductive" here refers to philosophical (i.e. suggesting a theory to explain observed facts) rather than mathematical (i.e. proving a property for all members of a well-ordered set) induction.
+
+The background knowledge is given as a logic theory B, commonly in the form of Horn clauses used in logic programming. The positive and negative examples are given as a conjunction and of unnegated and negated ground literals, respectively. A correct hypothesis h is a logic proposition satisfying the following requirements.[6]
+
+"Necessity" does not impose a restriction on h, but forbids any generation of a hypothesis as long as the positive facts are explainable without it. "Sufficiency" requires any generated hypothesis h to explain all positive examples . "Weak consistency" forbids generation of any hypothesis h that contradicts the background knowledge B. "Strong consistency" also forbids generation of any hypothesis h that is inconsistent with the negative examples , given the background knowledge B; it implies "Weak consistency"; if no negative examples are given, both requirements coincide. Deroski [7] requires only "Sufficiency" (called "Completeness" there) and "Strong consistency".
+
+The following well-known example about learning definitions of family relations uses the abbreviations
+
+It starts from the background knowledge (cf. picture)
+
+and the trivial proposition to denote the absence of negative examples.
+
+Plotkin's [8][9] "relative least general generalization (rlgg)" approach to inductive logic programming shall be used to obtain a suggestion about how to formally define the daughter relation .
+
+This approach uses the following steps.
+
+The resulting Horn clause is the hypothesis h obtained by the rlgg approach. Ignoring the background knowledge facts, the clause informally reads " is called a daughter of if is the parent of and is female", which is a commonly accepted definition.
+
+Concerning the above requirements, "Necessity" was satisfied because the predicate doesn't appear in the background knowledge, which hence cannot imply any property containing this predicate, such as the positive examples are. "Sufficiency" is satisfied by the computed hypothesis h, since it, together with from the background knowledge, implies the first positive example , and similarly h and from the background knowledge implies the second positive example . "Weak consistency" is satisfied by h, since h holds in the (finite) Herbrand structure described by the background knowledge; similar for "Strong consistency".
+
+The common definition of the grandmother relation, viz. , cannot be learned using the above approach, since the variable y occurs in the clause body only; the corresponding literals would have been deleted in the 4th step of the approach. To overcome this flaw, that step has to be modified such that it can be parametrized with different literal post-selection heuristics. Historically, the GOLEM implementation is based on the rlgg approach.
+
+Inductive Logic Programming system is a program that takes as an input logic theories and outputs a correct hypothesis H wrt theories An algorithm of an ILP system consists of two parts: hypothesis search and hypothesis selection. First a hypothesis is searched with an inductive logic programming procedure, then a subset of the found hypotheses (in most systems one hypothesis) is chosen by a selection algorithm. A selection algorithm scores each of the found hypotheses and returns the ones with the highest score. An example of score function include minimal compression length where a hypothesis with a lowest Kolmogorov complexity has the highest score and is returned. An ILP system is complete iff for any input logic theories any correct hypothesis H wrt to these input theories can be found with its hypothesis search procedure.
+
+Modern ILP systems like Progol,[5] Hail [12] and Imparo [13] find a hypothesis H using the principle of the inverse entailment[5] for theories B, E, H: . First they construct an intermediate theory F called a bridge theory satisfying the conditions and . Then as , they generalize the negation of the bridge theory F with the anti-entailment.[14] However, the operation of the anti-entailment since being highly non-deterministic is computationally more expensive. Therefore, an alternative hypothesis search can be conducted using the operation of the inverse subsumption (anti-subsumption) instead which is less non-deterministic than anti-entailment.
+
+Questions of completeness of a hypothesis search procedure of specific ILP system arise. For example, Progol's hypothesis search procedure based on the inverse entailment inference rule is not complete by Yamamoto's example.[15] On the other hand, Imparo is complete by both anti-entailment procedure [16] and its extended inverse subsumption [17] procedure.

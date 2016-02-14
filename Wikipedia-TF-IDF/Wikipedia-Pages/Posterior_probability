@@ -1,0 +1,25 @@
+In Bayesian statistics, the posterior probability of a random event or an uncertain proposition is the conditional probability that is assigned after the relevant evidence or background is taken into account. Similarly, the posterior probability distribution is the probability distribution of an unknown quantity, treated as a random variable, conditional on the evidence obtained from an experiment or survey. "Posterior", in this context, means after taking into account the relevant evidence related to the particular case being examined.
+
+The posterior probability is the probability of the parameters given the evidence : .
+
+It contrasts with the likelihood function, which is the probability of the evidence given the parameters: .
+
+The two are related as follows:
+
+Let us have a prior belief that the probability distribution function is and observations with the likelihood , then the posterior probability is defined as
+
+The posterior probability can be written in the memorable form as
+
+Suppose there is a mixed school having 60% boys and 40% girls as students. The girls wear trousers or skirts in equal numbers; the boys all wear trousers. An observer sees a (random) student from a distance; all the observer can see is that this student is wearing trousers. What is the probability this student is a girl? The correct answer can be computed using Bayes' theorem.
+
+The event is that the student observed is a girl, and the event is that the student observed is wearing trousers. To compute the posterior probability , we first need to know:
+
+Given all this information, the posterior probability of the observer having spotted a girl given that the observed student is wearing trousers can be computed by substituting these values in the formula:
+
+The intuition of this result is that since we observe trousers, the student is one of the 80 students who wear trousers (60 boys and 20 girls) out of every hundred students; since 20/80 = 1/4 of these are girls, the probability that the student in trousers is a girl is 1/4.
+
+The posterior probability distribution of one random variable given the value of another can be calculated with Bayes' theorem by multiplying the prior probability distribution by the likelihood function, and then dividing by the normalizing constant, as follows:
+
+gives the posterior probability density function for a random variable given the data , where
+
+In classification posterior probabilities reflect the uncertainty of assessing an observation to particular class, see also Class membership probabilities. While statistical classification methods by definition generate posterior probabilities, Machine Learners usually supply membership values which do not induce any probabilistic confidence. It is desirable to transform or re-scale membership values to class membership probabilities, since they are comparable and additionally easier applicable for post-processing.

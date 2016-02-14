@@ -1,0 +1,101 @@
+Regularization, in mathematics and statistics and particularly in the fields of machine learning and inverse problems, refers to a process of introducing additional information in order to solve an ill-posed problem or to prevent overfitting.
+
+In general, a regularization term is introduced to a general loss function:
+
+for a loss function that describes the cost of predicting when the label is , such as the square loss or hinge loss, and for the term which controls the importance of the regularization term. is typically a penalty on the complexity of , such as restrictions for smoothness or bounds on the vector space norm.[1]
+
+A theoretical justification for regularization is that it attempts to impose Occam's razor on the solution, as depicted in the figure. From a Bayesian point of view, many regularization techniques correspond to imposing certain prior distributions on model parameters.
+
+Regularization can be used to learn simpler models, induce models to be sparse, introduce group structure into the learning problem, and more.
+
+The same idea arose in many fields of science. For example, the least-squares method can be viewed as a very simple form of regularization. A simple form of regularization applied to integral equations, generally termed Tikhonov regularization after Andrey Nikolayevich Tikhonov, is essentially a trade-off between fitting the data and reducing a norm of the solution. More recently, non-linear regularization methods, including total variation regularization have become popular.
+
+Regularization can be motivated as a technique to improve the generalization of a learned model.
+
+The goal of a learning problem is to find a function that minimizes the expected error over all possible inputs and labels. The expected error of a function is:
+
+Typically in learning problems, only a subset of input data and labels are available, measured with some noise. Therefore the expected error is unmeasurable, and the best surrogate available is the empirical error over the available samples:
+
+Without bounds on the complexity of the function space (formally, the reproducing kernel Hilbert space) available, a model will be learned that incurs zero loss on the surrogate empirical error. When measurements are made with noise, this model may have suffered from overfitting and display poor expected error. Regularization introduces a penalty for exploring certain regions of the function space used to build the model, which can improve generalization.
+
+When learning a linear function, such that , the norm loss corresponds to Tikhonov regularization. This is one of the most common forms of regularization, is also known as ridge regression, and is expressed as:
+
+In the case of a general function, we take the norm of the function in its reproducing kernel Hilbert space:
+
+As the norm is differentiable, learning problems using Tikhonov regularization can be solved by gradient descent.
+
+The learning problem with the least squares loss function and Tikhonov regularization can be solved analytically. Written in matrix form, the problem is solved by setting the gradient to 0.
+
+During training, this algorithm takes time. The terms correspond to the matrix inversion and calculating , respectively. Testing takes time.
+
+Early stopping can be viewed as regularization in time. Intuitively, a training procedure like gradient descent will tend to learn more and more complex functions as the number of iterations increases. By regularizing on time, the complexity of the model can be controlled, improving generalization.
+
+In practice, early stopping is implemented by training on a training set and measuring accuracy on a statistically independent validation set. The model is trained until performance on the validation set no longer improves. The model is then tested on a testing set.
+
+Consider the finite approximation of Neumann series for an invertible matrix where :
+
+This can be used to approximate the analytical solution of unregularized least squares, if is introduced to ensure the norm is less than one.
+
+The exact solution to the unregularized least squares learning problem will minimize the empirical error, but may fail to generalize and minimize the expected error. By limiting , the only free parameter in the algorithm above, the problem is regularized on time which may improve its generalization.
+
+The algorithm above is equivalent to restricting the number of gradient descent iterations for the empirical risk
+
+The base case is trivial. The inductive case is proved as follows:
+
+Assume that a dictionary with dimension is given such that a function in the function space can be expressed as:
+
+A sensible sparsity constraint is the norm , defined as the number of non-zero elements in . Solving a regularized learning problem, however, has been demonstrated to be NP-hard.
+
+The norm can be used to approximate the optimal norm via convex relaxation. It can be shown that the norm induces sparsity. In the case of least squares, this problem is known as LASSO in statistics and basis pursuit in signal processing.
+
+Elastic net regularization tends to have a grouping effect, where correlated input features are assigned equal weights.
+
+Elastic net regularization is commonly used in practice and is implemented in many machine learning libraries.
+
+While the norm does not result in an NP-hard problem, it should be noted that the norm is convex but is not strictly diffentiable due to the kink at x = 0. Subgradient methods which rely on the subderivative can be used to solve regularized learning problems. However, faster convergence can be achieved through proximal methods.
+
+For a problem such that is convex, continuous, differentiable, with Lipschitz continuous gradient (such as the least squares loss function), and is convex, continuous, and proper, then the proximal method to solve the problem is as follows.
+
+The proximal method iteration iteratively performs gradient descent and then projects the result back into the space permitted by .
+
+When is the regularizer, the proximal operator is equivalent to the soft-thresholding operator,
+
+This allows for efficient computation.
+
+Groups of features can be regularized by a sparsity constraint, which can be useful for expressing certain prior knowledge into an optimization problem.
+
+In the case of a linear model with non-overlapping known groups, a regularizer can be defined:
+
+This can be viewed as inducing a regularizer over the norm over members of each group followed by an norm over groups.
+
+This can be solved by the proximal method, where the proximal operator is a block-wise soft-thresholding function:
+
+The algorithm described for group sparsity without overlaps can be applied to the case where groups do overlap, in certain situations. It should be noted that this will likely result in some groups with all zero elements, and other groups with some non-zero and some zero elements.
+
+If it is desired to preserve the group structure, a new regularizer can be defined:
+
+For each , is defined as the vector such that the restriction of to to the group equals and all other entries of are zero. The regularizer finds the optimal disintegration of into parts. It can be viewed as duplicating all elements that exist in multiple groups. Learning problems with this regularizer can also be solved with the proximal method with a complication. The proximal operator cannot be computed in closed form, but can be effectively solved iteratively, inducing an inner iteration within the proximal method iteration.
+
+When labels are more expensive to gather than input examples, semi-supervised learning can be useful. Regularizers have been designed to guide learning algorithms to learn models that respect the structure of unsupervised training samples. If a symmetric weight matrix is given, a regularizer can be defined:
+
+If encodes the result of some distance metric for points and , it is desirable that . This regularizer captures this intuition, and is equivalent to:
+
+The optimization problem can be solved analytically if the constraint is applied for all supervised samples. The labeled part of the vector is therefore obvious. The unlabeled part of is solved for by:
+
+Note that the pseudo-inverse can be taken because has the same range as .
+
+In the case of multitask learning, problems are considered simultaneously, each related in some way. The goal is to learn functions, ideally borrowing strength from the relatedness of tasks, that have predictive power. This is equivalent to learning the matrix .
+
+This regularizer defines an L2 norm on each column and an L1 norm over all columns. It can be solved by proximal methods.
+
+This regularizer constrains the functions learned for each task to be similar to the overall average of the functions across all tasks. This is useful for expressing prior information that each task is expected to share similarities with each other task. An example is predicting blood iron levels measured at different times of the day, where each task represents a different person.
+
+This regularizer is similar to the mean-constrained regularizer, but instead enforces similarity between tasks within the same cluster. This can capture more complex prior information. This technique has been used to predict Netflix recommendations. A cluster would correspond to a group of people who share similar preferences in movies.
+
+More general than above, similarity between tasks can be defined by a function. The regularizer encourages the model to learn similar functions for similar tasks.
+
+Bayesian learning methods make use of a prior probability that (usually) gives lower probability to more complex models. Well-known model selection techniques include the Akaike information criterion (AIC), minimum description length (MDL), and the Bayesian information criterion (BIC). Alternative methods of controlling overfitting not involving regularization include cross-validation.
+
+Examples of applications of different methods of regularization to the linear model are:
+
+In inverse problem theory, an optimization problem is usually solved to generate a model that provides a good match to observed data. In this context, a regularization term is used to preserve prior information about the model and prevent over-fitting and convergence to a model that matches the data but does not predict well. Ensemble-based regularization is based on utilizing an ensemble (i.e., a set) of realizations from the prior probability distribution function (pdf) to construct a regularization term .[8] This regularization is flexible as it is based on representing the prior pdf using a set of realizations, instead of using, say a mean and covariance matrix for Gaussian distribution.

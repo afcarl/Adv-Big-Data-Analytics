@@ -1,0 +1,89 @@
+Information retrieval (IR) is the activity of obtaining information resources relevant to an information need from a collection of information resources. Searches can be based on metadata or on full-text (or other content-based) indexing.
+
+Automated information retrieval systems are used to reduce what has been called "information overload". Many universities and public libraries use IR systems to provide access to books, journals and other documents. Web search engines are the most visible IR applications.
+
+An information retrieval process begins when a user enters a query into the system. Queries are formal statements of information needs, for example search strings in web search engines. In information retrieval a query does not uniquely identify a single object in the collection. Instead, several objects may match the query, perhaps with different degrees of relevancy.
+
+An object is an entity that is represented by information in a content collection or database. User queries are matched against the database information. However, as opposed to classical SQL queries of a database, in information retrieval the results returned may or may not match the query, so results are typically ranked. This ranking of results is a key difference of information retrieval searching compared to database searching.[1]
+
+Depending on the application the data objects may be, for example, text documents, images,[2] audio, mind maps[4] or videos. Often the documents themselves are not kept or stored directly in the IR system, but are instead represented in the system by document surrogates or metadata.
+
+Most IR systems compute a numeric score on how well each object in the database matches the query, and rank the objects according to this value. The top ranking objects are then shown to the user. The process may then be iterated if the user wishes to refine the query.[5]
+
+The idea of using computers to search for relevant pieces of information was popularized in the article As We May Think by Vannevar Bush in 1945.[6] It would appear that Bush was inspired by patents for a 'statistical machine' - filed by Emanuel Goldberg in the 1920s and '30s - that searched for documents stored on film.[7] The first description of a computer searching for information was described by Holmstrom in 1948,[8] detailing an early mention of the Univac computer. Automated information retrieval systems were introduced in the 1950s: one even featured in the 1957 romantic comedy, Desk Set. In the 1960s, the first large information retrieval research group was formed by Gerard Salton at Cornell. By the 1970s several different retrieval techniques had been shown to perform well on small text corpora such as the Cranfield collection (several thousand documents).[6] Large-scale retrieval systems, such as the Lockheed Dialog system, came into use early in the 1970s.
+
+In 1992, the US Department of Defense along with the National Institute of Standards and Technology (NIST), cosponsored the Text Retrieval Conference (TREC) as part of the TIPSTER text program. The aim of this was to look into the information retrieval community by supplying the infrastructure that was needed for evaluation of text retrieval methodologies on a very large text collection. This catalyzed research on methods that scale to huge corpora. The introduction of web search engines has boosted the need for very large scale retrieval systems even further.
+
+For effectively retrieving relevant documents by IR strategies, the documents are typically transformed into a suitable representation. Each retrieval strategy incorporates a specific model for its document representation purposes. The picture on the right illustrates the relationship of some common models. In the picture, the models are categorized according to two dimensions: the mathematical basis and the properties of the model.
+
+The evaluation of an information retrieval system is the process of assessing how well a system meets the information needs of its users. Traditional evaluation metrics, designed for Boolean retrieval or top-k retrieval, include precision and recall. Many more measures for evaluating the performance of information retrieval systems have also been proposed. In general, measurement considers a collection of documents to be searched and a search query. All common measures described here assume a ground truth notion of relevancy: every document is known to be either relevant or non-relevant to a particular query. In practice, queries may be ill-posed and there may be different shades of relevancy.
+
+Virtually all modern evaluation metrics (e.g., mean average precision, discounted cumulative gain) are designed for ranked retrieval without any explicit rank cutoff, taking into account the relative order of the documents retrieved by the search engines and giving more weight to documents returned at higher ranks.[citation needed]
+
+The mathematical symbols used in the formulas below mean:
+
+Precision is the fraction of the documents retrieved that are relevant to the user's information need.
+
+In binary classification, precision is analogous to positive predictive value. Precision takes all retrieved documents into account. It can also be evaluated at a given cut-off rank, considering only the topmost results returned by the system. This measure is called precision at n or P@n.
+
+Note that the meaning and usage of "precision" in the field of Information Retrieval differs from the definition of accuracy and precision within other branches of science and statistics.
+
+Recall is the fraction of the documents that are relevant to the query that are successfully retrieved.
+
+In binary classification, recall is often called sensitivity. So it can be looked at as the probability that a relevant document is retrieved by the query.
+
+It is trivial to achieve recall of 100% by returning all documents in response to any query. Therefore, recall alone is not enough but one needs to measure the number of non-relevant documents also, for example by computing the precision.
+
+The proportion of non-relevant documents that are retrieved, out of all non-relevant documents available:
+
+In binary classification, fall-out is closely related to specificity and is equal to . It can be looked at as the probability that a non-relevant document is retrieved by the query.
+
+It is trivial to achieve fall-out of 0% by returning zero documents in response to any query.
+
+The weighted harmonic mean of precision and recall, the traditional F-measure or balanced F-score is:
+
+This is also known as the measure, because recall and precision are evenly weighted.
+
+The general formula for non-negative real is:
+
+Two other commonly used F measures are the measure, which weights recall twice as much as precision, and the measure, which weights precision twice as much as recall.
+
+The F-measure was derived by van Rijsbergen (1979) so that "measures the effectiveness of retrieval with respect to a user who attaches times as much importance to recall as precision". It is based on van Rijsbergen's effectiveness measure . Their relationship is:
+
+F-measure can be a better single metric when compared to precision and recall; both precision and recall give different information that can complement each other when combined. If one of them excels more than the other, F-measure will reflect it.[citation needed]
+
+Precision and recall are single-value metrics based on the whole list of documents returned by the system. For systems that return a ranked sequence of documents, it is desirable to also consider the order in which the returned documents are presented. By computing a precision and recall at every position in the ranked sequence of documents, one can plot a precision-recall curve, plotting precision as a function of recall . Average precision computes the average value of over the interval from to :[9]
+
+That is the area under the precision-recall curve. This integral is in practice replaced with a finite sum over every position in the ranked sequence of documents:
+
+where is the rank in the sequence of retrieved documents, is the number of retrieved documents, is the precision at cut-off in the list, and is the change in recall from items to .[9]
+
+This finite sum is equivalent to:
+
+where is an indicator function equaling 1 if the item at rank is a relevant document, zero otherwise.[10] Note that the average is over all relevant documents and the relevant documents not retrieved get a precision score of zero.
+
+Some authors choose to interpolate the function to reduce the impact of "wiggles" in the curve.[11][12] For example, the PASCAL Visual Object Classes challenge (a benchmark for computer vision object detection) computes average precision by averaging the precision over a set of evenly spaced recall levels {0, 0.1, 0.2, ... 1.0}:[11][12]
+
+where is an interpolated precision that takes the maximum precision over all recalls greater than :
+
+An alternative is to derive an analytical function by assuming a particular parametric distribution for the underlying decision values. For example, a binormal precision-recall curve can be obtained by assuming decision values in both classes to follow a Gaussian distribution.[13]
+
+For modern (Web-scale) information retrieval, recall is no longer a meaningful metric, as many queries have thousands of relevant documents, and few users will be interested in reading all of them. Precision at k documents (P@k) is still a useful metric (e.g., P@10 or "Precision at 10" corresponds to the number of relevant results on the first search results page), but fails to take into account the positions of the relevant documents among the top k.[citation needed] Another shortcoming is that on a query with fewer relevant results than k, even a perfect system will have a score less than 1.[14] It easier to score manually since only the top k results need to be examined to determine if they are relevant or not.
+
+R-precision requires knowing all documents that are relevant to a query. The number of relevant documents, , is used as the cutoff for calculation, and this varies from query to query. For example, if there are 15 documents relevant to "red" in a corpus (R=15), R-precision for "red" looks at the top 15 documents returned, counts the number that are relevant turns that into a relevancy fraction: .[15]
+
+Precision is equal to recall at the R-th position.[14]
+
+Empirically, this measure is often highly correlated to mean average precision.[14]
+
+Mean average precision for a set of queries is the mean of the average precision scores for each query.
+
+where Q is the number of queries.
+
+DCG uses a graded relevance scale of documents from the result set to evaluate the usefulness, or gain, of a document based on its position in the result list. The premise of DCG is that highly relevant documents appearing lower in a search result list should be penalized as the graded relevance value is reduced logarithmically proportional to the position of the result.
+
+The DCG accumulated at a particular rank position is defined as:
+
+Since result set may vary in size among different queries or systems, to compare performances the normalised version of DCG uses an ideal DCG. To this end, it sorts documents of a result list by relevance, producing an ideal DCG at position p ( ), which normalizes the score:
+
+The nDCG values for all queries can be averaged to obtain a measure of the average performance of a ranking algorithm. Note that in a perfect ranking algorithm, the will be the same as the producing an nDCG of 1.0. All nDCG calculations are then relative values on the interval 0.0 to 1.0 and so are cross-query comparable.

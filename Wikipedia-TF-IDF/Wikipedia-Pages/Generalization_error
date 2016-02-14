@@ -1,0 +1,41 @@
+In supervised learning applications in machine learning and statistical learning theory, generalization error (also known as the out-of-sample error[1]) is a measure of how accurately an algorithm is able to predict outcome values for previously unseen data. Because learning algorithms are evaluated on finite samples, the evaluation of a learning algorithm may be sensitive to sampling error. As a result, measurements of prediction error on the current data may not provide much information about predictive ability on new data. Generalization error can be minimized by avoiding overfitting in the learning algorithm. The performance of a machine learning algorithm is measured by plots of the generalization error values through the learning process and are called learning curve.
+
+In a learning problem, the goal is to develop a function that predicts output values based on some input data . The expected error, of a particular function over all possible values of x and y is:
+
+where denotes a loss function and is the unknown joint probability distribution for and .
+
+Without knowing the joint probability distribution, it is impossible to compute I[f]. Instead, we can compute the empirical error on sample data. Given data points, the empirical error is:
+
+The generalization error is the difference between the expected and empirical error. This is the difference between error on the training set and error on the underlying joint probability distribution. It is defined as:
+
+An algorithm is said to generalize if:
+
+Since cannot be computed for an unknown probability distribution, the generalization error cannot be computed either. Instead, the aim of many problems in statistical learning theory is to bound or characterize the generalization error in probability:
+
+That is, the goal is to characterize the probability that the generalization error is less than some error bound (known as the learning rate and generally dependent on and .
+
+For many types of algorithms, it has been shown that an algorithm has generalization bounds if it meets certain stability criteria. Specifically, if an algorithm is symmetric (the order of inputs does not affect the result), has bounded loss and meets two stability conditions, it will generalize. The first stability condition, leave-one-out cross-validation stability, says that to be stable, the prediction error for each data point when leave-one-out cross validation is used must converge to zero as . The second condition, expected-to-leave-one-out error stability (also known as hypothesis stability if operating in the norm) is met if the prediction on a left-out datapoint does not change when a single data point is removed from the training dataset.[2]
+
+These conditions can be formalized as:
+
+An algorithm has CVloo stability if for each n, there exists a and such that:
+
+and and go to zero as N goes to infinity.[3]
+
+An algorithm has stability if for each n there exists a and a such that:
+
+with and going to zero for .
+
+For leave-one-out stability in the norm, this is the same as hypothesis stability:
+
+with going to zero as N goes to infinity.[4]
+
+A number of algorithms have been proven to be stable and as a result have bounds on their generalization error. A list of these algorithms and the papers that proved stability is available here.
+
+The concepts of generalization error and overfitting are closely related. Overfitting occurs when the learned function becomes sensitive to the noise in the sample. As a result, the function will perform well on the training set but not perform well on other data from the joint probability distribution of x and y. Thus, the more overfitting occurs, the larger the generalization error.
+
+The amount of overfitting can be tested using cross-validation methods, which splits the sample into simulated training samples and testing samples. The model is then trained on a training sample and evaluated on the testing sample. The testing sample is previously unseen by the algorithm and so represents a random sample from the joint probability distribution of x and y. This test sample allows us to approximate the expected error and as a result approximate a particular form of the generalization error.
+
+Many algorithms exists to prevent overfitting. The minimization algorithm can penalize more complex functions (known as Tikhonov regularization, or the hypothesis space can be constrained, either explicitly in the form of the functions or by adding constraints to the minimization function (Ivanov regularization).
+
+The approach to finding a function that does not overfit is at odds with the goal of finding a function that is sufficiently complex to capture the particular characteristics of the data. This is known as the biasvariance tradeoff. Keeping a function simple to avoid overfitting may introduce a bias in the resulting predictions, while allowing it to be more complex leads to overfitting and a higher variance in the predictions. It is impossible to minimize both simultaneously.
