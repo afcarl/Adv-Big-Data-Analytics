@@ -1,4 +1,4 @@
-# Wikipedia-TF-IDF
+# Wikipedia TF-IDF
 
 ###Steps
 
