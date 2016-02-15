@@ -38,7 +38,7 @@ class StdOutListener(StreamListener):
                     if len(companies) > 0 and len(text) > 0:
                         for company in companies:
                             print "Company: " + company
-                            with open(company + "_tweets.txt", 'a') as f:
+                            with open("/Company-Tweets/" + company + "_tweets.txt", 'a') as f:
                                 f.write(text + '\n')
             except:
                 pass
