@@ -47,6 +47,8 @@ folder named `Stock-Prices`.
 3. Create separate RDDs for each company's stock data.
 
   ```python
+  from os import listdir
+
   files = [ f for f in listdir('./Stock-Prices') if '.txt' in f ]
   for f in files:
       rdd = sc.textFile("Stock-Prices/" + f)
