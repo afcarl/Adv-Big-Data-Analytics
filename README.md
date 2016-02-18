@@ -6,7 +6,7 @@
 `$ virtualenv hw1`
 
 2. Install all the libraries in the virtual environment from the
-`requirement.txt` file using the command:
+`requirement.txt` file using the command:<br>
 `$ pip install -r requirements.txt`
 
 
