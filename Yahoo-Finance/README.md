@@ -74,8 +74,17 @@ is greater than twice the standard deviation.
   ```python
   outliers = prices.filter(lambda p: abs(p - mean) > 2 * stdev)
   ```
-7. And finally print the outliers...
+7. And finally print the outliers
 
   ```python
   print "Outliers in " + f[:len(f)-4] + ": " + `outliers.collect()`
+  ```
+
+8. Final output...
+  ```
+  Outliers in LinkedIn_shares: [102.49, 102.49]
+  Outliers in Microsoft_shares: [49.1]
+  Outliers in Facebook_shares: []
+  Outliers in Amazon_shares: [506.7, 506.7]
+  Outliers in Google_shares: []
   ```
