@@ -3,16 +3,16 @@
 ##Homework 1
 
 1. First setup and run a virtual environment using the command:
-```bash
-$ virtualenv hw1
-$ source hw1/bin/activate
-```
+  ```bash
+  $ virtualenv hw1
+  $ source hw1/bin/activate
+  ```
 
 2. Install all the libraries in the virtual environment from the
 `requirement.txt` file using the command:
-```bash
-$ pip install -r requirements.txt
-```
+  ```bash
+  $ pip install -r requirements.txt
+  ```
 
 
 - [Wikipedia TF-IDF](https://github.com/bahuljain/Adv-Big-Data-Analytics/tree/master/Wikipedia-TF-IDF)
