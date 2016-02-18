@@ -2,12 +2,14 @@
 
 ###Steps
 
-1. Use the `yahoo-finance` api to obtain stock data of a companies. Company
+1. Use the `yahoo-finance` api to obtain stock data of a list of companies. Company
 symbols are needed obtain the company's stock data.
 
   ```python
   symbols = ['LNKD', 'GOOG', 'FB', 'MSFT', 'AMZN']
   company_names = ['LinkedIn', 'Google', 'Facebook', 'Microsoft', 'Amazon']
+
+  # Holds the yahoo-finance object for all companies
   companies = []
 
   for symbol in symbols:
@@ -25,6 +27,7 @@ folder named `Stock-Prices`.
           price = company.get_price()
           print company.symbol + ' ' + `price`
 
+          # Store the price in separate text files.
           with open('Stock-Prices/' + company_names[i] + '_shares.txt', 'a') as f:
               f.write(price + '\n')
 
@@ -35,15 +38,17 @@ folder named `Stock-Prices`.
       get_current_price(companies, company_names)
       print ''
       count += 1
+      # intervals of 1 min
       time.sleep(60)
   ```
+
 3. Create separate RDDs for each company's stock data.
 
   ```python
   files = [ f for f in listdir('./Stock-Prices') if '.txt' in f ]
   for f in files:
       rdd = sc.textFile("Stock-Prices/" + f)
-  ```python
+  ```
 
 4. Prices in each line of the RDD are in string format. We need to convert them
 to float type.
