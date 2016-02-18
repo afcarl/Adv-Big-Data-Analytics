@@ -6,6 +6,8 @@
 symbols are needed obtain the company's stock data.
 
   ```python
+  from yahoo_finance import Share
+
   symbols = ['LNKD', 'GOOG', 'FB', 'MSFT', 'AMZN']
   company_names = ['LinkedIn', 'Google', 'Facebook', 'Microsoft', 'Amazon']
 
