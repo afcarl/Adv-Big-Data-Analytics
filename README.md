@@ -15,6 +15,6 @@
   ```
 
 
-- [Wikipedia TF-IDF](https://github.com/bahuljain/Adv-Big-Data-Analytics/tree/master/Wikipedia-TF-IDF)
-- [Twitter TF-IDF](https://github.com/bahuljain/Adv-Big-Data-Analytics/tree/master/Twitter-TF-IDF)
-- [Yahoo Finance](https://github.com/bahuljain/Adv-Big-Data-Analytics/tree/master/Yahoo-Finance)
+- Wikipedia TF-IDF
+- Twitter TF-IDF
+- Yahoo Finance
